@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deeplink</title>
+</head>
+<body>
+    <a href="javascript:void(0)" onclick="openApp()">Open App</a>
+
+    <script>
+        function openApp() {
+            var appLink = '"paok24://author/rafail-gkaidatzis"'; // Your app's deeplink
+            var timeout = 4000; // Set timeout for 2 seconds
+            var storeLink;
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+                storeLink = 'https://apps.apple.com/tr/app/paok-24/id407970457';
+                } else storeLink = 'https://play.google.com/store/apps/details?id=com.paok24.official&hl=el';
+
+                // Attempt to open the app using deeplink
+                window.location = appLink;
+
+                // Redirect to the store if the app is not opened
+                setTimeout(function() {
+                    window.location = storeLink;
+                }, timeout);
+        }
+    </script>
+</body>
+</html>
