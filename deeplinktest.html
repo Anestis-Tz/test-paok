@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Check and Redirect</title>
+    <script type="text/javascript">
+        function checkApp() {
+            // Attempt to open the app using the deep link
+            var deepLinkIntent = "intent://#Intent;package=com.paok24.official;scheme=paok24;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end";
+            var isAppOpened = false;
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var storeLink;
+
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                storeLink = 'https://apps.apple.com/app/cosmote-tv/id1484359546?l=el';
+            } else if (/android/i.test(userAgent)) {
+                storeLink = 'https://play.google.com/store/apps/details?id=gr.cosmote.cosmotetv.android&hl=en_US';
+            } else {
+                storeLink = 'https://play.google.com/store/apps/details?id=gr.cosmote.cosmotetv.android&hl=en_US';
+            }
+
+            // Open the deep link
+            var win = window.open(deepLinkIntent);
+
+            // Check if the app is opened
+            setTimeout(function() {
+                isAppOpened = !win || win.closed || typeof win.closed == 'undefined';
+                if (!isAppOpened) {
+                    window.location = storeLink;
+                }
+            }, 2000);
+
+            // Set focus event
+            window.onblur = function() {
+                isAppOpened = true;
+                if (win) {
+                    win.close();
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <button onclick="checkApp()">Open/Download App</button>
+</body>
+</html>
